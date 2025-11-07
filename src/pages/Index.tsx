@@ -10,7 +10,14 @@ const Index = () => {
     { name: "Zulu", nativeName: "isiZulu", icon: "🇿🇦", greeting: "Sawubona", progress: 0 },
     { name: "Xhosa", nativeName: "isiXhosa", icon: "🇿🇦", greeting: "Molo", progress: 0 },
     { name: "Afrikaans", nativeName: "Afrikaans", icon: "🇿🇦", greeting: "Hallo", progress: 0 },
-    { name: "Sotho", nativeName: "Sesotho", icon: "🇿🇦", greeting: "Dumela", progress: 0 },
+    { name: "English", nativeName: "English", icon: "🇿🇦", greeting: "Hello", progress: 0 },
+    { name: "Northern Sotho", nativeName: "Sepedi", icon: "🇿🇦", greeting: "Thobela", progress: 0 },
+    { name: "Tswana", nativeName: "Setswana", icon: "🇿🇦", greeting: "Dumela", progress: 0 },
+    { name: "Southern Sotho", nativeName: "Sesotho", icon: "🇿🇦", greeting: "Lumela", progress: 0 },
+    { name: "Tsonga", nativeName: "Xitsonga", icon: "🇿🇦", greeting: "Avuxeni", progress: 0 },
+    { name: "Swati", nativeName: "siSwati", icon: "🇿🇦", greeting: "Sawubona", progress: 0 },
+    { name: "Venda", nativeName: "Tshivenda", icon: "🇿🇦", greeting: "Ndaa", progress: 0 },
+    { name: "Ndebele", nativeName: "isiNdebele", icon: "🇿🇦", greeting: "Lotjhani", progress: 0 },
   ];
 
   const handleLanguageSelect = (language: string) => {
