@@ -7,10 +7,10 @@ const Index = () => {
   const navigate = useNavigate();
 
   const languages = [
-    { name: "Zulu", nativeName: "isiZulu", icon: "🇿🇦", progress: 0 },
-    { name: "Xhosa", nativeName: "isiXhosa", icon: "🇿🇦", progress: 0 },
-    { name: "Afrikaans", nativeName: "Afrikaans", icon: "🇿🇦", progress: 0 },
-    { name: "Sotho", nativeName: "Sesotho", icon: "🇿🇦", progress: 0 },
+    { name: "Zulu", nativeName: "isiZulu", icon: "🇿🇦", greeting: "Sawubona", progress: 0 },
+    { name: "Xhosa", nativeName: "isiXhosa", icon: "🇿🇦", greeting: "Molo", progress: 0 },
+    { name: "Afrikaans", nativeName: "Afrikaans", icon: "🇿🇦", greeting: "Hallo", progress: 0 },
+    { name: "Sotho", nativeName: "Sesotho", icon: "🇿🇦", greeting: "Dumela", progress: 0 },
   ];
 
   const handleLanguageSelect = (language: string) => {
