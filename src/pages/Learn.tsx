@@ -15,43 +15,133 @@ const Learn = () => {
   const [score, setScore] = useState(0);
   const [showQuiz, setShowQuiz] = useState(false);
 
-  // Sample lesson data - would come from a database in production
-  const lessons = [
-    {
-      word: "Sawubona",
-      translation: "Hello",
-      pronunciation: "sah-woo-BOH-nah",
-      example: "Sawubona! Unjani?",
-      exampleTranslation: "Hello! How are you?"
+  // Language-specific lesson data
+  const lessonData: Record<string, any> = {
+    "Zulu": {
+      lessons: [
+        { word: "Sawubona", translation: "Hello", pronunciation: "sah-woo-BOH-nah", example: "Sawubona! Unjani?", exampleTranslation: "Hello! How are you?" },
+        { word: "Yebo", translation: "Yes", pronunciation: "YEH-boh", example: "Yebo, ngiyaphila.", exampleTranslation: "Yes, I am well." },
+        { word: "Ngiyabonga", translation: "Thank you", pronunciation: "ngee-yah-BONG-ah", example: "Ngiyabonga kakhulu!", exampleTranslation: "Thank you very much!" }
+      ],
+      quiz: [
+        { question: "How do you say 'Hello' in Zulu?", options: ["Yebo", "Sawubona", "Ngiyabonga", "Hamba kahle"], correctAnswer: 1 },
+        { question: "What does 'Ngiyabonga' mean?", options: ["Goodbye", "Yes", "Thank you", "Hello"], correctAnswer: 2 }
+      ]
     },
-    {
-      word: "Yebo",
-      translation: "Yes",
-      pronunciation: "YEH-boh",
-      example: "Yebo, ngiyaphila.",
-      exampleTranslation: "Yes, I am well."
+    "Xhosa": {
+      lessons: [
+        { word: "Molo", translation: "Hello", pronunciation: "MOH-loh", example: "Molo! Unjani?", exampleTranslation: "Hello! How are you?" },
+        { word: "Ewe", translation: "Yes", pronunciation: "EH-weh", example: "Ewe, ndiyaphila.", exampleTranslation: "Yes, I am well." },
+        { word: "Enkosi", translation: "Thank you", pronunciation: "en-KOH-see", example: "Enkosi kakhulu!", exampleTranslation: "Thank you very much!" }
+      ],
+      quiz: [
+        { question: "How do you say 'Hello' in Xhosa?", options: ["Ewe", "Molo", "Enkosi", "Hamba kakuhle"], correctAnswer: 1 },
+        { question: "What does 'Enkosi' mean?", options: ["Goodbye", "Yes", "Thank you", "Hello"], correctAnswer: 2 }
+      ]
     },
-    {
-      word: "Ngiyabonga",
-      translation: "Thank you",
-      pronunciation: "ngee-yah-BONG-ah",
-      example: "Ngiyabonga kakhulu!",
-      exampleTranslation: "Thank you very much!"
+    "Afrikaans": {
+      lessons: [
+        { word: "Hallo", translation: "Hello", pronunciation: "HAH-loh", example: "Hallo! Hoe gaan dit?", exampleTranslation: "Hello! How are you?" },
+        { word: "Ja", translation: "Yes", pronunciation: "YAH", example: "Ja, dit gaan goed.", exampleTranslation: "Yes, I am well." },
+        { word: "Dankie", translation: "Thank you", pronunciation: "DAHN-kee", example: "Baie dankie!", exampleTranslation: "Thank you very much!" }
+      ],
+      quiz: [
+        { question: "How do you say 'Hello' in Afrikaans?", options: ["Ja", "Hallo", "Dankie", "Totsiens"], correctAnswer: 1 },
+        { question: "What does 'Dankie' mean?", options: ["Goodbye", "Yes", "Thank you", "Hello"], correctAnswer: 2 }
+      ]
+    },
+    "English": {
+      lessons: [
+        { word: "Hello", translation: "Hello", pronunciation: "heh-LOH", example: "Hello! How are you?", exampleTranslation: "Hello! How are you?" },
+        { word: "Yes", translation: "Yes", pronunciation: "YEHS", example: "Yes, I am well.", exampleTranslation: "Yes, I am well." },
+        { word: "Thank you", translation: "Thank you", pronunciation: "THANK yoo", example: "Thank you very much!", exampleTranslation: "Thank you very much!" }
+      ],
+      quiz: [
+        { question: "How do you say 'Hello' in English?", options: ["Yes", "Hello", "Thank you", "Goodbye"], correctAnswer: 1 },
+        { question: "What does 'Thank you' mean?", options: ["Goodbye", "Yes", "Thank you", "Hello"], correctAnswer: 2 }
+      ]
+    },
+    "Northern Sotho": {
+      lessons: [
+        { word: "Thobela", translation: "Hello", pronunciation: "toh-BEH-lah", example: "Thobela! O kae?", exampleTranslation: "Hello! How are you?" },
+        { word: "Ee", translation: "Yes", pronunciation: "EH-eh", example: "Ee, ke phela gabotse.", exampleTranslation: "Yes, I am well." },
+        { word: "Ke a leboga", translation: "Thank you", pronunciation: "keh ah leh-BOH-gah", example: "Ke a leboga kudu!", exampleTranslation: "Thank you very much!" }
+      ],
+      quiz: [
+        { question: "How do you say 'Hello' in Northern Sotho?", options: ["Ee", "Thobela", "Ke a leboga", "Sala gabotse"], correctAnswer: 1 },
+        { question: "What does 'Ke a leboga' mean?", options: ["Goodbye", "Yes", "Thank you", "Hello"], correctAnswer: 2 }
+      ]
+    },
+    "Tswana": {
+      lessons: [
+        { word: "Dumela", translation: "Hello", pronunciation: "doo-MEH-lah", example: "Dumela! O tsogile jang?", exampleTranslation: "Hello! How are you?" },
+        { word: "Ee", translation: "Yes", pronunciation: "EH-eh", example: "Ee, ke tsogile sentle.", exampleTranslation: "Yes, I am well." },
+        { word: "Ke a leboga", translation: "Thank you", pronunciation: "keh ah leh-BOH-gah", example: "Ke a leboga thata!", exampleTranslation: "Thank you very much!" }
+      ],
+      quiz: [
+        { question: "How do you say 'Hello' in Tswana?", options: ["Ee", "Dumela", "Ke a leboga", "Sala sentle"], correctAnswer: 1 },
+        { question: "What does 'Ke a leboga' mean?", options: ["Goodbye", "Yes", "Thank you", "Hello"], correctAnswer: 2 }
+      ]
+    },
+    "Southern Sotho": {
+      lessons: [
+        { word: "Lumela", translation: "Hello", pronunciation: "loo-MEH-lah", example: "Lumela! U phela joang?", exampleTranslation: "Hello! How are you?" },
+        { word: "E", translation: "Yes", pronunciation: "EH", example: "E, ke phela hantle.", exampleTranslation: "Yes, I am well." },
+        { word: "Kea leboha", translation: "Thank you", pronunciation: "KEH-ah leh-BOH-hah", example: "Kea leboha haholo!", exampleTranslation: "Thank you very much!" }
+      ],
+      quiz: [
+        { question: "How do you say 'Hello' in Southern Sotho?", options: ["E", "Lumela", "Kea leboha", "Sala hantle"], correctAnswer: 1 },
+        { question: "What does 'Kea leboha' mean?", options: ["Goodbye", "Yes", "Thank you", "Hello"], correctAnswer: 2 }
+      ]
+    },
+    "Tsonga": {
+      lessons: [
+        { word: "Avuxeni", translation: "Hello", pronunciation: "ah-voo-SHEH-nee", example: "Avuxeni! Ku njhani?", exampleTranslation: "Hello! How are you?" },
+        { word: "Ina", translation: "Yes", pronunciation: "EE-nah", example: "Ina, ndzi kona.", exampleTranslation: "Yes, I am well." },
+        { word: "Ndza khensa", translation: "Thank you", pronunciation: "n-dzah KHEN-sah", example: "Ndza khensa swinene!", exampleTranslation: "Thank you very much!" }
+      ],
+      quiz: [
+        { question: "How do you say 'Hello' in Tsonga?", options: ["Ina", "Avuxeni", "Ndza khensa", "Hambanani kahle"], correctAnswer: 1 },
+        { question: "What does 'Ndza khensa' mean?", options: ["Goodbye", "Yes", "Thank you", "Hello"], correctAnswer: 2 }
+      ]
+    },
+    "Swati": {
+      lessons: [
+        { word: "Sawubona", translation: "Hello", pronunciation: "sah-woo-BOH-nah", example: "Sawubona! Unjani?", exampleTranslation: "Hello! How are you?" },
+        { word: "Yebo", translation: "Yes", pronunciation: "YEH-boh", example: "Yebo, ngikhona.", exampleTranslation: "Yes, I am well." },
+        { word: "Ngiyabonga", translation: "Thank you", pronunciation: "ngee-yah-BONG-ah", example: "Ngiyabonga kakhulu!", exampleTranslation: "Thank you very much!" }
+      ],
+      quiz: [
+        { question: "How do you say 'Hello' in Swati?", options: ["Yebo", "Sawubona", "Ngiyabonga", "Hamba kahle"], correctAnswer: 1 },
+        { question: "What does 'Ngiyabonga' mean?", options: ["Goodbye", "Yes", "Thank you", "Hello"], correctAnswer: 2 }
+      ]
+    },
+    "Venda": {
+      lessons: [
+        { word: "Ndaa", translation: "Hello", pronunciation: "n-DAH", example: "Ndaa! Vho vuwa hani?", exampleTranslation: "Hello! How are you?" },
+        { word: "Ee", translation: "Yes", pronunciation: "EH-eh", example: "Ee, ndi khou vuwa.", exampleTranslation: "Yes, I am well." },
+        { word: "Ndo livhuwa", translation: "Thank you", pronunciation: "n-doh lee-VOO-wah", example: "Ndo livhuwa nga maanda!", exampleTranslation: "Thank you very much!" }
+      ],
+      quiz: [
+        { question: "How do you say 'Hello' in Venda?", options: ["Ee", "Ndaa", "Ndo livhuwa", "Kha vha sale"], correctAnswer: 1 },
+        { question: "What does 'Ndo livhuwa' mean?", options: ["Goodbye", "Yes", "Thank you", "Hello"], correctAnswer: 2 }
+      ]
+    },
+    "Ndebele": {
+      lessons: [
+        { word: "Lotjhani", translation: "Hello", pronunciation: "loh-CHAH-nee", example: "Lotjhani! Kunjani?", exampleTranslation: "Hello! How are you?" },
+        { word: "Yebo", translation: "Yes", pronunciation: "YEH-boh", example: "Yebo, ngikhona.", exampleTranslation: "Yes, I am well." },
+        { word: "Ngiyathokoza", translation: "Thank you", pronunciation: "ngee-yah-toh-KOH-zah", example: "Ngiyathokoza kakhulu!", exampleTranslation: "Thank you very much!" }
+      ],
+      quiz: [
+        { question: "How do you say 'Hello' in Ndebele?", options: ["Yebo", "Lotjhani", "Ngiyathokoza", "Hhamba khahle"], correctAnswer: 1 },
+        { question: "What does 'Ngiyathokoza' mean?", options: ["Goodbye", "Yes", "Thank you", "Hello"], correctAnswer: 2 }
+      ]
     }
-  ];
+  };
 
-  const quizQuestions = [
-    {
-      question: "How do you say 'Hello' in Zulu?",
-      options: ["Yebo", "Sawubona", "Ngiyabonga", "Hamba kahle"],
-      correctAnswer: 1
-    },
-    {
-      question: "What does 'Ngiyabonga' mean?",
-      options: ["Goodbye", "Yes", "Thank you", "Hello"],
-      correctAnswer: 2
-    }
-  ];
+  const lessons = lessonData[language]?.lessons || lessonData["Zulu"].lessons;
+  const quizQuestions = lessonData[language]?.quiz || lessonData["Zulu"].quiz;
 
   const handleNext = () => {
     if (currentStep < lessons.length - 1) {
