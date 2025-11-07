@@ -58,6 +58,7 @@ const Learn = () => {
       setCurrentStep(currentStep + 1);
     } else {
       setShowQuiz(true);
+      setCurrentStep(0); // Reset for quiz questions
     }
   };
 
